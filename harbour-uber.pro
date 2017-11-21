@@ -14,7 +14,10 @@ TARGET = harbour-uber
 
 CONFIG += sailfishapp
 
-SOURCES += src/harbour-uber.cpp
+include($$PWD/o2/src/src.pri)
+
+SOURCES += src/harbour-uber.cpp \
+    src/uberlogin.cpp
 
 OTHER_FILES += qml/harbour-uber.qml \
     qml/cover/CoverPage.qml \
@@ -39,3 +42,6 @@ CONFIG += sailfishapp_i18n
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
 TRANSLATIONS += translations/harbour-uber-de.ts
+
+HEADERS += \
+    src/uberlogin.h

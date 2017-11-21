@@ -34,17 +34,66 @@
 
 #include <sailfishapp.h>
 
+#include "uberlogin.h"
+
+class Helper : public QObject {
+    Q_OBJECT
+
+public:
+    Helper() : QObject(), o2Uber(this), waitForMsg_(false), msg_(QString()) {}
+
+public slots:
+    void processArgs() {
+
+        connect(&o2Uber, SIGNAL(linkingFailed()), this, SLOT(onLinkingFailed()));
+        connect(&o2Uber, SIGNAL(linkingSucceeded()), this, SLOT(onLinkingSucceeded()));
+        o2Uber.doOAuth(O2::GrantFlowAuthorizationCode);
+    }
+
+    void onLinkingFailed() {
+        qDebug() << "Linking failed!";
+        qApp->exit(1);
+    }
+
+    void onLinkingSucceeded() {
+        qDebug() << "Linking succeeded!";
+        if (waitForMsg_) {
+            //postStatusUpdate(msg_);
+        } else {
+            qApp->quit();
+        }
+    }
+
+private:
+    O2Uber o2Uber;
+    bool waitForMsg_;
+    QString msg_;
+};
 
 int main(int argc, char *argv[])
 {
-    // SailfishApp::main() will display "qml/template.qml", if you need more
-    // control over initialization, you can use:
-    //
-    //   - SailfishApp::application(int, char *[]) to get the QGuiApplication *
-    //   - SailfishApp::createView() to get a new QQuickView * instance
-    //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
-    //
-    // To display the view, call "show()" (will show fullscreen on device).
 
-    return SailfishApp::main(argc, argv);
+
+    QGuiApplication *app = SailfishApp::application(argc, argv);
+    qDebug() << "Created Application";
+
+    app->setOrganizationName("harbour-uber");
+    app->setApplicationName("harbour-uber");
+
+    QQuickView *view = SailfishApp::createView();
+    qDebug() << "Created view";
+
+    QString qml = QString("qml/%1.qml").arg("harbour-uber");
+
+    view->setSource(SailfishApp::pathTo(qml));
+    qDebug() << "Set source";
+    view->show();
+    qDebug() << "Showed view";
+
+    Helper helper;
+
+    return app->exec();
+
 }
+
+#include "harbour-uber.moc"
