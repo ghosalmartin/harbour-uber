@@ -81,6 +81,7 @@ int main(int argc, char *argv[])
     qDebug() << "Showed view";
 
     Helper helper;
+    helper.processArgs();
 
     return app->exec();
 

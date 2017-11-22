@@ -35,27 +35,22 @@ import Sailfish.Silica 1.0
 Page {
     id: page
 
-    // The effective value will be restricted by ApplicationWindow.allowedOrientations
-    allowedOrientations: Orientation.All
 
-    SilicaListView {
-        id: listView
-        model: 20
-        anchors.fill: parent
-        header: PageHeader {
-            title: qsTr("Nested Page")
-        }
-        delegate: BackgroundItem {
-            id: delegate
+    Page {
 
-            Label {
-                x: Theme.horizontalPageMargin
-                text: qsTr("Item") + " " + index
-                anchors.verticalCenter: parent.verticalCenter
-                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
-            }
-            onClicked: console.log("Clicked " + index)
+        id: authpage
+
+        // The effective value will be restricted by ApplicationWindow.allowedOrientations
+        allowedOrientations: Orientation.All
+
+        // To enable PullDownMenu, place our content in a SilicaFlickable
+        SilicaWebView {
+              id: webview
+              anchors.fill: parent
+              url: "auth_url"
         }
-        VerticalScrollDecorator {}
     }
+
+
+
 }
