@@ -17,11 +17,11 @@ signals:
     void linkingFailed();
     void linkingSucceeded();
 
-public:
+public slots:
     void doOAuth(O2::GrantFlow grantFlowType);
     void validateToken();
 
-private:
+private slots:
     void onLinkedChanged();
     void onLinkingSucceeded();
     void onOpenBrowser(const QUrl &url);

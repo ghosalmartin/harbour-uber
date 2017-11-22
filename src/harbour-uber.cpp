@@ -40,39 +40,29 @@ class Helper : public QObject {
     Q_OBJECT
 
 public:
-    Helper() : QObject(), o2Uber(this), waitForMsg_(false), msg_(QString()) {}
+    Helper() : QObject(), uberLogin(this) {}
 
 public slots:
     void processArgs() {
-
-        connect(&o2Uber, SIGNAL(linkingFailed()), this, SLOT(onLinkingFailed()));
-        connect(&o2Uber, SIGNAL(linkingSucceeded()), this, SLOT(onLinkingSucceeded()));
-        o2Uber.doOAuth(O2::GrantFlowAuthorizationCode);
+        connect(&uberLogin, SIGNAL(linkingFailed()), this, SLOT(onLinkingFailed()));
+        connect(&uberLogin, SIGNAL(linkingSucceeded()), this, SLOT(onLinkingSucceeded()));
+        uberLogin.doOAuth(O2::GrantFlowAuthorizationCode);
     }
 
     void onLinkingFailed() {
         qDebug() << "Linking failed!";
-        qApp->exit(1);
     }
 
     void onLinkingSucceeded() {
         qDebug() << "Linking succeeded!";
-        if (waitForMsg_) {
-            //postStatusUpdate(msg_);
-        } else {
-            qApp->quit();
-        }
     }
 
 private:
-    O2Uber o2Uber;
-    bool waitForMsg_;
-    QString msg_;
+    UberLogin uberLogin;
 };
 
 int main(int argc, char *argv[])
 {
-
 
     QGuiApplication *app = SailfishApp::application(argc, argv);
     qDebug() << "Created Application";

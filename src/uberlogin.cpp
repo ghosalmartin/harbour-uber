@@ -20,7 +20,7 @@ const int localPort = 8888;
 #define QENUM_NAME(o,e,v) (o::staticMetaObject.enumerator(o::staticMetaObject.indexOfEnumerator(#e)).valueToKey((v)))
 #define GRANTFLOW_STR(v) QString(QENUM_NAME(O2, GrantFlow, v))
 
-UberLogin::uberlogin(QObject *parent) : QObject(parent)
+UberLogin::UberLogin(QObject *parent) : QObject(parent)
 {
     o2Uber_ = new O2Uber(this);
 
@@ -64,6 +64,8 @@ void UberLogin::validateToken() {
 }
 
 void UberLogin::onOpenBrowser(const QUrl &url) {
+    qDebug() << "Attempting to open browser!";
+
 }
 
 void UberLogin::onCloseBrowser() {
