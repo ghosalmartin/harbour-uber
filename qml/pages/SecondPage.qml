@@ -30,27 +30,56 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-
+import harbour.uber.UberLogin 1.0
+import harbour.uber.O2Uber 1.0
 
 Page {
     id: page
 
+    O2Uber {
+        id: o2Uber
+        clientId: 'z2hUEP5mar6x466S6JoVqjOFLQA5yei3'
+        clientSecret: 'bX4Zy0RzGxPAklazjPLgyouiktUHM1sKQ36q6eZ_'
+        localPort: 8888
+        scope: "profile"
 
-    Page {
-
-        id: authpage
-
-        // The effective value will be restricted by ApplicationWindow.allowedOrientations
-        allowedOrientations: Orientation.All
-
-        // To enable PullDownMenu, place our content in a SilicaFlickable
-        SilicaWebView {
-              id: webview
-              anchors.fill: parent
-              url: "auth_url"
+        onOpenBrowser: {
+            uberLogin.setupStore()
+            webview.url = url
+            webview.visible = true
         }
+
+        onCloseBrowser:{
+            webview.visible = false
+        }
+
     }
 
+    UberLogin {
+        id: uberLogin
+        authenticator_: o2Uber
+    }
 
+    SilicaWebView {
+        id: webview
+        url: url
+        anchors.fill: parent
+        visible: false
+    }
 
+    Button {
+        id: loginButton
+        height: 500
+        width: 500
+        anchors.centerIn: parent.verticalCenter
+        text: o2Uber.linked? "Logout": "Login"
+        onClicked: {
+            enabled = false
+            if (o2Uber.linked) {
+                o2Uber.unlink()
+            } else {
+                o2Uber.link()
+            }
+        }
+    }
 }

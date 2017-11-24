@@ -36,31 +36,6 @@
 
 #include "uberlogin.h"
 
-class Helper : public QObject {
-    Q_OBJECT
-
-public:
-    Helper() : QObject(), uberLogin(this) {}
-
-public slots:
-    void processArgs() {
-        connect(&uberLogin, SIGNAL(linkingFailed()), this, SLOT(onLinkingFailed()));
-        connect(&uberLogin, SIGNAL(linkingSucceeded()), this, SLOT(onLinkingSucceeded()));
-        uberLogin.doOAuth(O2::GrantFlowAuthorizationCode);
-    }
-
-    void onLinkingFailed() {
-        qDebug() << "Linking failed!";
-    }
-
-    void onLinkingSucceeded() {
-        qDebug() << "Linking succeeded!";
-    }
-
-private:
-    UberLogin uberLogin;
-};
-
 int main(int argc, char *argv[])
 {
 
@@ -69,6 +44,10 @@ int main(int argc, char *argv[])
 
     app->setOrganizationName("harbour-uber");
     app->setApplicationName("harbour-uber");
+
+
+    qmlRegisterType<UberLogin>("harbour.uber.UberLogin", 1, 0, "UberLogin");
+    qmlRegisterType<O2Uber>("harbour.uber.O2Uber", 1, 0, "O2Uber");
 
     QQuickView *view = SailfishApp::createView();
     qDebug() << "Created view";
@@ -80,11 +59,6 @@ int main(int argc, char *argv[])
     view->show();
     qDebug() << "Showed view";
 
-    Helper helper;
-    helper.processArgs();
-
     return app->exec();
 
 }
-
-#include "harbour-uber.moc"

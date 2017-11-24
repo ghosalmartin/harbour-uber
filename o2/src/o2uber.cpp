@@ -16,6 +16,7 @@
 static const char *UberEndpoint = "https://login.uber.com/oauth/v2/authorize";
 static const char *UberTokenUrl = "https://login.uber.com/oauth/v2/token";
 static const char *UberExpiresIn = "expires_in";
+static const char *UberGrantType = "authorization_code";
 
 static const char O2_OAUTH2_GRANT_TYPE_UBER_CODE[] = "authorization_code";
 
@@ -47,21 +48,23 @@ void O2Uber::onVerificationReceived(const QMap<QString, QString> response){
 #if QT_VERSION < 0x050000
     url.addQueryItem(O2_OAUTH2_CLIENT_ID, clientId_);
     url.addQueryItem(O2_OAUTH2_CLIENT_SECRET, clientSecret_);
-    url.addQueryItem(O2_OAUTH2_SCOPE, scope_);
-    url.addQueryItem(O2_OAUTH2_GRANT_TYPE_UBER_CODE, code());
+    url.addQueryItem(O2_OAUTH2_GRANT_TYPE, UberGrantType);
     url.addQueryItem(O2_OAUTH2_REDIRECT_URI, redirectUri_);
+    url.addQueryItem(O2_OAUTH2_GRANT_TYPE_CODE, code());
+    url.addQueryItem(O2_OAUTH2_SCOPE, scope_);
 #else
     QUrlQuery query(url);
     query.addQueryItem(O2_OAUTH2_CLIENT_ID, clientId_);
     query.addQueryItem(O2_OAUTH2_CLIENT_SECRET, clientSecret_);
-    query.addQueryItem(O2_OAUTH2_SCOPE, scope_);
-    query.addQueryItem(O2_OAUTH2_GRANT_TYPE_UBER_CODE, code());
+    query.addQueryItem(O2_OAUTH2_GRANT_TYPE, UberGrantType);
     query.addQueryItem(O2_OAUTH2_REDIRECT_URI, redirectUri_);
+    query.addQueryItem(O2_OAUTH2_GRANT_TYPE_CODE, code());
+    query.addQueryItem(O2_OAUTH2_SCOPE, scope_);
     url.setQuery(query);
 #endif
 
     QNetworkRequest tokenRequest(url);
-    QNetworkReply *tokenReply = manager_->get(tokenRequest);
+    QNetworkReply *tokenReply = manager_->post(tokenRequest, QByteArray());
     timedReplies_.add(tokenReply);
     connect(tokenReply, SIGNAL(finished()), this, SLOT(onTokenReplyFinished()), Qt::QueuedConnection);
     connect(tokenReply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onTokenReplyError(QNetworkReply::NetworkError)), Qt::QueuedConnection);

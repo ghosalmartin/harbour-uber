@@ -9,27 +9,17 @@ class UberLogin : public QObject
 {
     Q_OBJECT
 
+
 public:
+    /// OAuth authenticator
+    Q_PROPERTY(O2Uber *authenticator_ READ authenticator WRITE setAuthenticator)
+    O2Uber *authenticator() const;
+    void setAuthenticator(O2Uber *v) ;
+
     explicit UberLogin(QObject *parent = 0);
 
-signals:
-    void extraTokensReady(const QVariantMap &extraTokens);
-    void linkingFailed();
-    void linkingSucceeded();
-
-public slots:
-    void doOAuth(O2::GrantFlow grantFlowType);
-    void validateToken();
-
-private slots:
-    void onLinkedChanged();
-    void onLinkingSucceeded();
-    void onOpenBrowser(const QUrl &url);
-    void onCloseBrowser();
-    void onFinished();
-
 private:
-    O2Uber *o2Uber_;
+    O2Uber *authenticator_;
 };
 
 #endif // UBERLOGIN_H
