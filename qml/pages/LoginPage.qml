@@ -34,7 +34,7 @@ import harbour.uber.UberLogin 1.0
 import harbour.uber.O2Uber 1.0
 
 Page {
-    id: page
+    id: loginPage
 
     O2Uber {
         id: o2Uber
@@ -52,11 +52,6 @@ Page {
             webview.visible = false
         }
 
-    }
-
-    UberLogin {
-        id: uberLogin
-        authenticator_: o2Uber
     }
 
     SilicaWebView {
@@ -79,26 +74,4 @@ Page {
             }
         }
     }
-
-    Button {
-        id: profileButton
-        height: 500
-        width: 500
-        text: "Profile"
-        y: 300
-        onClicked: {
-            uberLogin.getProfile()
-        }
-    }
-
-    Button {
-        height: 500
-        width: 500
-        text: "Store"
-        y: 600
-        onClicked: {
-            uberLogin.setupStore()
-        }
-    }
-
 }

@@ -35,32 +35,6 @@ import "../js/logic/auth.js" as Logic
 
 Page {
 
-    id: authpage
-
-    property string client_id: "z2hUEP5mar6x466S6JoVqjOFLQA5yei3"
-    property string response_type: "code"
-    property string redirect_uri : "https://localhost:8888"
-    property string auth_url : "https://login.uber.com/oauth/v2/authorize?client_id=" + client_id + "&response_type=" + response_type + "&redirect_uri=" + redirect_uri
-
-    WorkerScript {
-        id: uberWorker
-        source: "../js/services/uberWorker.js"
-        onMessage: {
-            Logic.workerOnMessage(messageObject);
-        }
-    }
-
-    // The effective value will be restricted by ApplicationWindow.allowedOrientations
-    allowedOrientations: Orientation.All
-
-    // To enable PullDownMenu, place our content in a SilicaFlickable
-    SilicaWebView {
-          id: webview
-          anchors.fill: parent
-          url: auth_url
-          onUrlChanged: {
-            Logic.webViewUrlChanged(url)
-          }
-    }
+    id: mapPage
 }
 

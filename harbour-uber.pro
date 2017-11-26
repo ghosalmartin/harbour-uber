@@ -21,8 +21,6 @@ SOURCES += src/harbour-uber.cpp \
 
 OTHER_FILES += qml/harbour-uber.qml \
     qml/cover/CoverPage.qml \
-    qml/pages/FirstPage.qml \
-    qml/pages/SecondPage.qml \
     qml/js/logic/auth.js \
     qml/js/services/uberWorker.js \
     rpm/harbour-uber.changes.in \
@@ -45,3 +43,7 @@ TRANSLATIONS += translations/harbour-uber-de.ts
 
 HEADERS += \
     src/uberlogin.h
+
+DISTFILES += \
+    qml/pages/LoginPage.qml \
+    qml/pages/MapPage
