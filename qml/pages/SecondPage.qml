@@ -41,10 +41,9 @@ Page {
         clientId: 'z2hUEP5mar6x466S6JoVqjOFLQA5yei3'
         clientSecret: 'bX4Zy0RzGxPAklazjPLgyouiktUHM1sKQ36q6eZ_'
         localPort: 8888
-        scope: "profile"
+        scope: "profile history"
 
         onOpenBrowser: {
-            uberLogin.setupStore()
             webview.url = url
             webview.visible = true
         }
@@ -71,10 +70,8 @@ Page {
         id: loginButton
         height: 500
         width: 500
-        anchors.centerIn: parent.verticalCenter
         text: o2Uber.linked? "Logout": "Login"
         onClicked: {
-            enabled = false
             if (o2Uber.linked) {
                 o2Uber.unlink()
             } else {
@@ -82,4 +79,26 @@ Page {
             }
         }
     }
+
+    Button {
+        id: profileButton
+        height: 500
+        width: 500
+        text: "Profile"
+        y: 300
+        onClicked: {
+            uberLogin.getProfile()
+        }
+    }
+
+    Button {
+        height: 500
+        width: 500
+        text: "Store"
+        y: 600
+        onClicked: {
+            uberLogin.setupStore()
+        }
+    }
+
 }
