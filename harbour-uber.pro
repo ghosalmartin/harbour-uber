@@ -14,6 +14,8 @@ TARGET = harbour-uber
 
 CONFIG += sailfishapp
 
+QT += positioning location
+
 include($$PWD/o2/src/src.pri)
 
 SOURCES += src/harbour-uber.cpp \

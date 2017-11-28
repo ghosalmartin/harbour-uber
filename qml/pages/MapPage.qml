@@ -30,11 +30,26 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import "../js/logic/auth.js" as Logic
 
+import QtPositioning 5.2
+import QtLocation 5.3
 
 Page {
-
     id: mapPage
+
+    Map{
+        id: map
+        //gesture.acceptedGestures: MapGestureArea.PanGesture | MapGestureArea.FlickGesture | MapGestureArea.PinchGesture
+
+        gesture.flickDeceleration: 3000
+        gesture.enabled: true
+    }
+
+    PositionSource {
+        onPositionChanged: {
+            // center the map on the current position
+            map.center = position.coordinate
+        }
+    }
 }
 

@@ -30,18 +30,28 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import harbour.uber.UberLogin 1.0
 import harbour.uber.O2Uber 1.0
 
 Page {
     id: loginPage
+
+    onStatusChanged: {
+        if(status == PageStatus.Active){
+            if(o2Uber.linked){
+                pageStack.replace("MapPage.qml")
+            } else {
+                progressBar.visible = false
+                o2Uber.link()
+            }
+        }
+    }
 
     O2Uber {
         id: o2Uber
         clientId: 'z2hUEP5mar6x466S6JoVqjOFLQA5yei3'
         clientSecret: 'bX4Zy0RzGxPAklazjPLgyouiktUHM1sKQ36q6eZ_'
         localPort: 8888
-        scope: "profile history"
+        scope: "profile"
 
         onOpenBrowser: {
             webview.url = url
@@ -49,7 +59,7 @@ Page {
         }
 
         onCloseBrowser:{
-            webview.visible = false
+            pageStack.replace("MapPage.qml")
         }
 
     }
@@ -61,17 +71,10 @@ Page {
         visible: false
     }
 
-    Button {
-        id: loginButton
-        height: 500
-        width: 500
-        text: o2Uber.linked? "Logout": "Login"
-        onClicked: {
-            if (o2Uber.linked) {
-                o2Uber.unlink()
-            } else {
-                o2Uber.link()
-            }
-        }
+    BusyIndicator{
+        id: progressBar
+        running: true
+        size: BusyIndicatorSize.Medium
+        anchors.centerIn: parent
     }
 }

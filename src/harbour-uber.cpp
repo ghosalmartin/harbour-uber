@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     app->setApplicationName("harbour-uber");
 
 
-    qmlRegisterType<UberLogin>("harbour.uber.UberLogin", 1, 0, "UberLogin");
+//    qmlRegisterType<UberLogin>("harbour.uber.UberLogin", 1, 0, "UberLogin");
     qmlRegisterType<O2Uber>("harbour.uber.O2Uber", 1, 0, "O2Uber");
 
     QQuickView *view = SailfishApp::createView();
