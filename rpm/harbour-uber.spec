@@ -25,6 +25,10 @@ BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(Qt5Location)
+BuildRequires:  pkgconfig(Qt5Positioning)
+BuildRequires:  opt-gcc6
+BuildRequires:  qmapboxgl
 BuildRequires:  desktop-file-utils
 
 %description
@@ -55,6 +59,13 @@ rm -rf %{buildroot}
 %qmake5_install
 
 # >> install post
+
+# ship all shared libraries not allowed in Harbour with the app
+mkdir -p %{buildroot}%{_datadir}/%{name}/lib
+
+cp /opt/gcc6/lib/libstdc++.so.6.0.22 %{buildroot}%{_datadir}/%{name}/lib/libstdc++.so.6
+cp /opt/gcc6/lib/libgcc_s.so.1 %{buildroot}%{_datadir}/%{name}/lib/libgcc_s.so.1
+cp /opt/gcc6/lib/libgcc_s.so %{buildroot}%{_datadir}/%{name}/lib/libgcc_s.so
 # << install post
 
 desktop-file-install --delete-original       \

@@ -17,6 +17,13 @@ CONFIG += sailfishapp
 QT += positioning location
 
 include($$PWD/o2/src/src.pri)
+include($$PWD/mapbox-gl-qml/mapbox-gl-qml.pri)
+
+QMAKE_CXX=/opt/gcc6/bin/g++
+QMAKE_CC=/opt/gcc6/bin/gcc
+QMAKE_LINK=/opt/gcc6/bin/g++
+
+LIBS += -lqmapboxgl -lz -L/opt/gcc6/lib
 
 SOURCES += src/harbour-uber.cpp \
     src/uberlogin.cpp
