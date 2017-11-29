@@ -31,24 +31,31 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-import QtPositioning 5.2
-import QtLocation 5.3
+import MapboxMap 1.0
+import QtPositioning 5.3
 
-Page {
-    id: mapPage
+Page
+{
+    id: page
 
-    Map{
+    MapboxMap {
         id: map
-        //gesture.acceptedGestures: MapGestureArea.PanGesture | MapGestureArea.FlickGesture | MapGestureArea.PinchGesture
+        anchors.fill: parent
 
-        gesture.flickDeceleration: 3000
-        gesture.enabled: true
-    }
+        center: QtPositioning.coordinate(60.170448, 24.942046)
+        zoomLevel: 4.0
+        minimumZoomLevel: 0
+        maximumZoomLevel: 20
+        pixelRatio: 3.0
 
-    PositionSource {
-        onPositionChanged: {
-            // center the map on the current position
-            map.center = position.coordinate
+        accessToken: "pk.eyJ1IjoicmluaWd1cyIsImEiOiJjajdkcHM0MWkwYjE4MzBwZml3OTRqOTc4In0.cjKiY1ZtOyS4KPJF0ewwQQ"
+        cacheDatabaseMaximalSize: 20*1024*1024
+        cacheDatabasePath: "/tmp/mbgl-cache.db"
+
+        styleUrl: "mapbox://styles/mapbox/outdoors-v10"
+
+        MapboxMapGestureArea {
+            map: map
         }
     }
 }
