@@ -35,7 +35,6 @@
 #include <sailfishapp.h>
 
 #include "uberlogin.h"
-#include "qquickitemmapboxgl.h"
 
 int main(int argc, char *argv[])
 {
@@ -47,7 +46,6 @@ int main(int argc, char *argv[])
     app->setApplicationName("harbour-uber");
 
     qmlRegisterType<O2Uber>("harbour.uber.O2Uber", 1, 0, "O2Uber");
-    qmlRegisterType<QQuickItemMapboxGL>("QQuickItemMapboxGL", 1, 0, "MapboxMap");
 
     QQuickView *view = SailfishApp::createView();
     qDebug() << "Created view";

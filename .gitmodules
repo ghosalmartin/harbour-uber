@@ -2,7 +2,3 @@
 	path = o2
 	url = git@github.com:pipacs/o2.git
 	branch = master
-[submodule "mapbox-gl-qml"]
-	path = mapbox-gl-qml
-	url = git@github.com:rinigus/mapbox-gl-qml.git
-	branch = master

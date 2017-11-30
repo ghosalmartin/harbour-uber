@@ -27,8 +27,7 @@ BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5Location)
 BuildRequires:  pkgconfig(Qt5Positioning)
-BuildRequires:  opt-gcc6
-BuildRequires:  qmapboxgl
+BuildRequires:  mapboxgl-qml
 BuildRequires:  desktop-file-utils
 
 %description

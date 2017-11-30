@@ -30,8 +30,7 @@ PkgConfigBR:
 
 # Build dependencies without a pkgconfig setup can be listed here
 PkgBR:
-  - opt-gcc6
-  - qmapboxgl
+  - mapboxgl-qml
 
 # Runtime dependencies which are not automatically detected
 Requires:
