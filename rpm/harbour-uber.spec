@@ -21,6 +21,7 @@ URL:        http://example.org/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-uber.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
+Requires:   mapboxgl-qml
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
@@ -62,9 +63,6 @@ rm -rf %{buildroot}
 # ship all shared libraries not allowed in Harbour with the app
 mkdir -p %{buildroot}%{_datadir}/%{name}/lib
 
-cp /opt/gcc6/lib/libstdc++.so.6.0.22 %{buildroot}%{_datadir}/%{name}/lib/libstdc++.so.6
-cp /opt/gcc6/lib/libgcc_s.so.1 %{buildroot}%{_datadir}/%{name}/lib/libgcc_s.so.1
-cp /opt/gcc6/lib/libgcc_s.so %{buildroot}%{_datadir}/%{name}/lib/libgcc_s.so
 # << install post
 
 desktop-file-install --delete-original       \

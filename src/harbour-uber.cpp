@@ -34,7 +34,7 @@
 
 #include <sailfishapp.h>
 
-#include "uberlogin.h"
+#include "network/uberlogin.h"
 
 int main(int argc, char *argv[])
 {

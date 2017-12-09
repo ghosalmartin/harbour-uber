@@ -19,12 +19,17 @@ QT += positioning location
 include($$PWD/o2/src/src.pri)
 
 SOURCES += src/harbour-uber.cpp \
-    src/uberlogin.cpp
+    src/network/uberlogin.cpp
+
+HEADERS += \
+    src/network/uberlogin.h \
+    src/network/endpoints.h
 
 OTHER_FILES += qml/harbour-uber.qml \
-    qml/cover/CoverPage.qml \
-    qml/js/logic/auth.js \
-    qml/js/services/uberWorker.js \
+    qml/CoverPage.qml \
+    qml/PositionSource.qml \
+    qml/LoginPage.qml \
+    qml/MapPage \
     rpm/harbour-uber.changes.in \
     rpm/harbour-uber.spec \
     rpm/harbour-uber.yaml \
@@ -42,10 +47,3 @@ CONFIG += sailfishapp_i18n
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
 TRANSLATIONS += translations/harbour-uber-de.ts
-
-HEADERS += \
-    src/uberlogin.h
-
-DISTFILES += \
-    qml/pages/LoginPage.qml \
-    qml/pages/MapPage

@@ -30,12 +30,16 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import "pages"
+import "."
 
 ApplicationWindow
 {
+    PositionSource { id: gps }
+
+    id: app
     initialPage: Component { LoginPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
+
 }
 

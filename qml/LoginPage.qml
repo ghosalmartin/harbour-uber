@@ -38,7 +38,7 @@ Page {
     onStatusChanged: {
         if(status == PageStatus.Active){
             if(o2Uber.linked){
-                pageStack.replace("MapPage.qml")
+                pageStack.replace("Map.qml")
             } else {
                 progressBar.visible = false
                 o2Uber.link()
@@ -66,9 +66,8 @@ Page {
 
     SilicaWebView {
         id: webview
-        url: url
         anchors.fill: parent
-        visible: false
+        visible: false       
     }
 
     BusyIndicator{
