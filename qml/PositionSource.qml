@@ -4,7 +4,7 @@ import QtPositioning 5.3
 PositionSource {
     id: gps
 
-    active: true
+    active: app.applicationActive
 
     property bool ready: false
 

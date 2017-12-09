@@ -57,6 +57,7 @@ MapboxMap {
     property var  position: gps.position
     property bool ready: false
     property var  route: {}
+    property int  workingMapZoom: 15
 
     // layer that is existing in the current style and
     // which can be used to position route and other layers
@@ -119,12 +120,10 @@ MapboxMap {
     }
 
     onPositionChanged: {
-        console.log("POSITION CHANGED")
         if (!map.centerFound && gps.ready) {
-            console.log("LOCKED AND LOADED")
             // Center on user's position on first start.
             map.centerFound = true;
-            map.setZoomLevel(14);
+            map.setZoomLevel(workingMapZoom);
             map.centerOnPosition();
         }
     }
@@ -135,49 +134,17 @@ MapboxMap {
         activeClickedGeo: true
         activePressAndHoldGeo: true
 
-        onDoubleClicked: map.centerOnPosition()
-
-        onClickedGeo: {
-            // Process mouse clicks by comparing them with the current position,
-            // and POIs
-
-            // 15 pixels at 96dpi would correspond to 4 mm
-            var nearby_lat = map.pixelRatio * 15 * degLatPerPixel;
-            var nearby_lon = map.pixelRatio * 15 * degLonPerPixel;
-
-            // check if its current position
-            if ( Math.abs(geocoordinate.longitude - map.position.coordinate.longitude) < nearby_lon &&
-                 Math.abs(geocoordinate.latitude - map.position.coordinate.latitude) < nearby_lat ) {
-//                positionMarker.mouseClick();
-                return;
-            }
-
-            for (var i = 0; i < map.pois.length; i++) {
-                if ( Math.abs(geocoordinate.longitude - map.pois[i].coordinate.longitude) < nearby_lon &&
-                     Math.abs(geocoordinate.latitude - map.pois[i].coordinate.latitude) < nearby_lat ) {
-                    if (!map.pois[i].bubble) {
-                        var component = Qt.createComponent("PoiMarker.qml");
-                        var poi = map.pois[i];
-                        var trackid = "POI bubble: " + String(poi.coordinate);
-                        var bubble = component.createObject(map, {
-                            "coordinate": poi.coordinate,
-                            "trackerId": trackid,
-                            "title": poi.title,
-                            "text": poi.text,
-                            "link": poi.link
-                        } );
-
-                        map.trackLocation(trackid, poi.coordinate);
-                        map.pois[i].bubble = bubble;
-                    }
-                    return;
-                }
-            }
-
-            // Unknown click - let's close all POI dialogs and info bubble for attribution
-            map.hidePoiBubbles();
-//            attribution.clearInfo();
+        onDoubleClicked: {
+            map.setZoomLevel(workingMapZoom);
+            map.centerOnPosition()
         }
+
+        onClickedGeo: map.addPois([{
+                                      "x": geocoordinate.longitude,
+                                      "y": geocoordinate.latitude,
+                                      "title": "Unnamed point",
+                                      "text": "Unnamed point"
+                                  }])
 
         onPressAndHoldGeo: map.addPois([{
             "x": geocoordinate.longitude,
@@ -240,7 +207,8 @@ MapboxMap {
             map.pois.push(poi);
         }
 
-        map.updateMapPois();    }
+        map.updateMapPois();
+    }
 
     function addRoute(route, amend) {
         /*
@@ -457,7 +425,7 @@ MapboxMap {
         /// roads and other sources
 
         map.addSourcePoints(constants.sourcePois, []);
-//        map.addImagePath(constants.imagePoi, Qt.resolvedUrl(app.getIcon("icons/poi")))
+//        map.addImagePath(constants.imagePoi, Qt.resolvedUrl(app.getIcon("icons/harbour-uber")))
         map.addSourceLine(constants.sourceRoute, []);
         map.addSourcePoints(constants.sourceManeuvers, []);
     }

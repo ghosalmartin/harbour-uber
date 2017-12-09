@@ -33,12 +33,15 @@ import Sailfish.Silica 1.0
 import harbour.uber.O2Uber 1.0
 
 Page {
+
+    property string mapPageFileName: "MapPage.qml"
+
     id: loginPage
 
     onStatusChanged: {
         if(status == PageStatus.Active){
             if(o2Uber.linked){
-                pageStack.replace("Map.qml")
+                pageStack.replace(mapPageFileName)
             } else {
                 progressBar.visible = false
                 o2Uber.link()
@@ -59,7 +62,7 @@ Page {
         }
 
         onCloseBrowser:{
-            pageStack.replace("MapPage.qml")
+            pageStack.replace(mapPageFileName)
         }
 
     }
