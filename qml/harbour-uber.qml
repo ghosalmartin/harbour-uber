@@ -34,12 +34,26 @@ import "."
 
 ApplicationWindow
 {
-    PositionSource { id: gps }
-
     id: app
     initialPage: Component { LoginPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
+
+    PositionSource { id: gps }
+
+    function getIcon(name) {
+        // Return path to icon suitable for user's screen,
+        // finding the closest match to Theme.pixelRatio.
+        var ratios = [1.00, 2.00, 3.00];
+        var minIndex = -1, minDiff = 1000, diff;
+        for (var i = 0; i < ratios.length; i++) {
+            diff = Math.abs(Theme.pixelRatio - ratios[i]);
+            minIndex = diff < minDiff ? i : minIndex;
+            minDiff = Math.min(minDiff, diff);
+        }
+        var ratio = ratios[minIndex].toFixed(2);
+        return "%1@%2.png".arg(name).arg(ratio);
+    }
 
 }
 

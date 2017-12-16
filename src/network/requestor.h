@@ -5,21 +5,19 @@
 
 #include "o2uber.h"
 
-class UberLogin : public QObject
+class Requestor : public QObject
 {
     Q_OBJECT
 
 
 public:
     /// OAuth authenticator
-    Q_PROPERTY(O2Uber *authenticator_ READ authenticator WRITE setAuthenticator)
-    O2Uber *authenticator() const;
+    Q_PROPERTY(O2Uber *authenticator_ WRITE setAuthenticator)
     void setAuthenticator(O2Uber *v) ;
 
-    Q_INVOKABLE void getProfile();
-    Q_INVOKABLE void setupStore();
+    Q_INVOKABLE void makeNetworkCall(QString endpointUrl);
 
-    explicit UberLogin(QObject *parent = 0);
+    explicit Requestor(QObject *parent = 0);
 
 public slots:
     void success(int id, QNetworkReply::NetworkError error, QByteArray data);

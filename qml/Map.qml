@@ -31,7 +31,7 @@ MapboxMap {
     width: parent.width
 
     center: QtPositioning.coordinate(51.5074, 0.1278)
-    zoomLevel: 2.5
+    zoomLevel: workingMapZoom
     minimumZoomLevel: 0
     maximumZoomLevel: 20
 
@@ -134,24 +134,14 @@ MapboxMap {
         activeClickedGeo: true
         activePressAndHoldGeo: true
 
-        onDoubleClicked: {
-            map.setZoomLevel(workingMapZoom);
-            map.centerOnPosition()
-        }
+//        onClickedGeo:
 
-        onClickedGeo: map.addPois([{
-                                      "x": geocoordinate.longitude,
-                                      "y": geocoordinate.latitude,
-                                      "title": "Unnamed point",
-                                      "text": "Unnamed point"
-                                  }])
-
-        onPressAndHoldGeo: map.addPois([{
-            "x": geocoordinate.longitude,
-            "y": geocoordinate.latitude,
-            "title": "Unnamed point",
-            "text": "Unnamed point"
-        }])
+//        onPressAndHoldGeo: map.addPois([{
+//            "x": geocoordinate.longitude,
+//            "y": geocoordinate.latitude,
+//            "title": "Unnamed point",
+//            "text": "Unnamed point"
+//        }])
 
     }
 

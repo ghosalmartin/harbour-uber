@@ -34,7 +34,7 @@
 
 #include <sailfishapp.h>
 
-#include "network/uberlogin.h"
+#include "network/requestor.h"
 
 int main(int argc, char *argv[])
 {
@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
     app->setApplicationName("harbour-uber");
 
     qmlRegisterType<O2Uber>("harbour.uber.O2Uber", 1, 0, "O2Uber");
+    qmlRegisterType<Requestor>("harbour.uber.Requestor", 1, 0, "Requestor");
 
     QQuickView *view = SailfishApp::createView();
     qDebug() << "Created view";
