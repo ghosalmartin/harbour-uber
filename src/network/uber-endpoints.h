@@ -1,5 +1,5 @@
-#ifndef ENDPOINTS_H
-#define ENDPOINTS_H
+#ifndef UBER_ENDPOINTS_H
+#define UBER_ENDPOINTS_H
 
 #define UBER_API_VERSION = "1.2";
 
@@ -34,4 +34,4 @@
 #define UBER_REQUEST_MAP_ENDPOINT = UBER_REQUEST_ENDPOINT + "/%1/map";
 #define UBER_REQUEST_RECEIPT_ENDPOINT = UBER_REQUEST_ENDPOINT + "/%1/receipt";
 
-#endif // ENDPOINTS_H
+#endif // UBER_ENDPOINTS_H

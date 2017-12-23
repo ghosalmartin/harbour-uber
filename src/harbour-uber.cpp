@@ -34,7 +34,8 @@
 
 #include <sailfishapp.h>
 
-#include "network/requestor.h"
+#include "o2uber.h"
+#include "network/uber-profile-requestor.h"
 
 int main(int argc, char *argv[])
 {
@@ -46,7 +47,8 @@ int main(int argc, char *argv[])
     app->setApplicationName("harbour-uber");
 
     qmlRegisterType<O2Uber>("harbour.uber.O2Uber", 1, 0, "O2Uber");
-    qmlRegisterType<Requestor>("harbour.uber.Requestor", 1, 0, "Requestor");
+    qmlRegisterType<UberProfileRequestor>("harbour.uber.UberProfileRequestor", 1, 0, "UberProfileRequestor");
+    qmlRegisterSingletonType(QUrl("qrc:///Authenticator.qml"), "harbour.uber.Authenticator", 1, 0, "Authenticator");
 
     QQuickView *view = SailfishApp::createView();
     qDebug() << "Created view";
@@ -55,6 +57,7 @@ int main(int argc, char *argv[])
 
     view->setSource(SailfishApp::pathTo(qml));
     qDebug() << "Set source";
+
     view->show();
     qDebug() << "Showed view";
 

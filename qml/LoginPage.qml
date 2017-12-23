@@ -30,7 +30,9 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import harbour.uber.O2Uber 1.0
+import harbour.uber.Authenticator 1.0
+
+import "."
 
 Page {
 
@@ -40,21 +42,17 @@ Page {
 
     onStatusChanged: {
         if(status == PageStatus.Active){
-            if(o2Uber.linked){
+            if(authenticator.linked){
                 pageStack.replace(mapPageFileName)
             } else {
                 progressBar.visible = false
-                o2Uber.link()
+                authenticator.link()
             }
         }
     }
 
-    O2Uber {
-        id: o2Uber
-        clientId: 'z2hUEP5mar6x466S6JoVqjOFLQA5yei3'
-        clientSecret: 'bX4Zy0RzGxPAklazjPLgyouiktUHM1sKQ36q6eZ_'
-        localPort: 8888
-        scope: "profile"
+    Authenticator {
+        id: authenticator
 
         onOpenBrowser: {
             webview.url = url
@@ -70,7 +68,7 @@ Page {
     SilicaWebView {
         id: webview
         anchors.fill: parent
-        visible: false       
+        visible: false
     }
 
     BusyIndicator{

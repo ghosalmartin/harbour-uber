@@ -19,17 +19,20 @@ QT += positioning location
 include($$PWD/o2/src/src.pri)
 
 SOURCES += src/harbour-uber.cpp \
-    src/network/requestor.cpp
+    src/network/uber-requestor.cpp \
+    src/network/uber-profile-requestor.cpp
 
 HEADERS += \
-    src/network/endpoints.h \
-    src/network/requestor.h
+    src/network/uber-requestor.h \
+    src/network/uber-endpoints.h \
+    src/network/uber-profile-requestor.h
 
 OTHER_FILES += qml/harbour-uber.qml \
     qml/CoverPage.qml \
     qml/PositionSource.qml \
     qml/LoginPage.qml \
-    qml/MapPage \
+    qml/MapPage.qml \
+    qml/Authenticator.qml \
     qml/icons/map_pin@1.75.png \
     rpm/harbour-uber.changes.in \
     rpm/harbour-uber.spec \

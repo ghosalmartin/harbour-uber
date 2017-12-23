@@ -11,7 +11,10 @@ Page {
         IconButton {
             id: pin
             anchors.centerIn: parent
+            anchors.bottomMargin: -height / 2
             icon.source: Qt.resolvedUrl(app.getIcon("icons/pickup_pin"))
+            onClicked: pageStack.replace("Profile.qml")
+
         }
 
         IconButton {
@@ -22,6 +25,7 @@ Page {
             anchors.horizontalCenterOffset: icon.height
             anchors.margins: 100
             onClicked: map.centerOnPosition()
+
         }
     }
 }

@@ -30,16 +30,20 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import harbour.uber.Authenticator 1.0
+
 import "."
 
 ApplicationWindow
 {
+
     id: app
     initialPage: Component { LoginPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
 
     PositionSource { id: gps }
+    Authenticator { id: authenticator }
 
     function getIcon(name) {
         // Return path to icon suitable for user's screen,
@@ -54,6 +58,5 @@ ApplicationWindow
         var ratio = ratios[minIndex].toFixed(2);
         return "%1@%2.png".arg(name).arg(ratio);
     }
-
 }
 
