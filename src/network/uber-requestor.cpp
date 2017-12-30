@@ -16,43 +16,54 @@ O2Uber *UberRequestor::getAuthenticator() const {
     return authenticator_;
 }
 
-void UberRequestor::makeNetworkCall(QString endpointUrl, QNetworkAccessManager::Operation operation, const QByteArray &data){
-    QNetworkAccessManager* manager = new QNetworkAccessManager(this);
+void UberRequestor::makeNetworkCall(
+        char *endpointUrl,
+        QNetworkAccessManager::Operation operation,
+        const QByteArray &data){
+
+    QNetworkAccessManager* manager =
+            new QNetworkAccessManager(this);
 
     QUrl url = QUrl(endpointUrl);
-    QString authorizationHeader = "Bearer " + authenticator_->token();
+    QString authorizationHeader =
+            "Bearer " + authenticator_->token();
     QNetworkRequest request(url);
 
-    request.setHeader(QNetworkRequest::ContentTypeHeader, O2_MIME_TYPE_XFORM);
-    request.setRawHeader(O2_HTTP_AUTHORIZATION_HEADER, authorizationHeader.toUtf8());
-
-    QNetworkReply *reply;
+    request.setHeader(QNetworkRequest::ContentTypeHeader,
+                      O2_MIME_TYPE_XFORM);
+    request.setRawHeader(O2_HTTP_AUTHORIZATION_HEADER,
+                         authorizationHeader.toUtf8());
 
     switch (operation) {
     case QNetworkAccessManager::Operation::PutOperation:
-        reply = manager->put(request, data);
+        manager->put(request, data);
         break;
 
     case QNetworkAccessManager::Operation::GetOperation:
-        reply = manager->get(request);
+        manager->get(request);
         break;
     case QNetworkAccessManager::Operation::PostOperation:
-        reply = manager->post(request, data);
+        manager->post(request, data);
         break;
     default:
         break;
     }
 
-    connect(reply, SIGNAL(finished()), this, SLOT(success(reply)));
-    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(error(QNetworkReply::NetworkError)));
-
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(finished(QNetworkReply*)));
+    eventLoop.exec();
 }
 
 
-void UberRequestor::success(QNetworkReply *reply){
-//    deserialize(data);
-}
-
-void UberRequestor::failure(QNetworkReply::NetworkError error){
-    qDebug() << "UberLogin::Failure";
+void UberRequestor::finished(QNetworkReply *reply){
+    if (reply->error() == QNetworkReply::NoError) {
+        deserialize(reply->readAll());
+        delete reply;
+        eventLoop.exit(0);
+    }
+    else {
+        onError(reply->errorString());
+        delete reply;
+        eventLoop.exit(0);
+    }
 }

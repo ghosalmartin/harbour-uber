@@ -25,7 +25,8 @@ SOURCES += src/harbour-uber.cpp \
 HEADERS += \
     src/network/uber-requestor.h \
     src/network/uber-endpoints.h \
-    src/network/uber-profile-requestor.h
+    src/network/uber-profile-requestor.h \
+    src/objects/profile.h
 
 OTHER_FILES += qml/harbour-uber.qml \
     qml/CoverPage.qml \

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QNetworkAccessManager>
+#include <QEventLoop>
 
 #include "o0globals.h"
 #include "o2requestor.h"
@@ -21,12 +22,19 @@ public:
 
     explicit UberRequestor(QObject *parent = 0);
 
-    void makeNetworkCall(QString endpoint, QNetworkAccessManager::Operation operation, const QByteArray &data);
+    void makeNetworkCall(char *endpoint, QNetworkAccessManager::Operation operation, const QByteArray &data);
 
-    void success(QNetworkReply *reply);
-    void failure(QNetworkReply::NetworkError error);
+    virtual void deserialize(QByteArray data) = 0;
+    virtual void onError(QString errorString) = 0;
 
+protected:
     O2Uber *authenticator_;
+
+public slots:
+    void finished(QNetworkReply *reply);
+
+private:
+    QEventLoop eventLoop;
 };
 
 #endif // REQUESTOR

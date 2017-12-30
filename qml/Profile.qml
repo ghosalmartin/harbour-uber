@@ -10,6 +10,13 @@ Page {
     UberProfileRequestor {
         id: requestor
         authenticator_: authenticator
+        onProfileChanged: {
+            console.log(profile_)
+        }
+
+        onProfile_Changed: {
+            console.log(profile_)
+        }
     }
 
     Button{
@@ -17,10 +24,8 @@ Page {
         width: height
         anchors.centerIn: parent
         onClicked: {
-            console.log(authenticator.token)
-            requestor.getProfile()
+            requestor.fetchProfileFromNetwork()
         }
     }
-
 
 }

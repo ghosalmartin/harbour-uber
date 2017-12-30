@@ -37,6 +37,8 @@
 #include "o2uber.h"
 #include "network/uber-profile-requestor.h"
 
+#include "objects/profile.h"
+
 int main(int argc, char *argv[])
 {
 
