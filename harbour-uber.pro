@@ -20,7 +20,8 @@ include($$PWD/o2/src/src.pri)
 
 SOURCES += src/harbour-uber.cpp \
     src/network/uber-requestor.cpp \
-    src/network/uber-profile-requestor.cpp
+    src/network/uber-profile-requestor.cpp \
+    src/objects/profile.cpp
 
 HEADERS += \
     src/network/uber-requestor.h \

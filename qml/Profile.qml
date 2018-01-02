@@ -11,15 +11,11 @@ Page {
         id: requestor
         authenticator_: authenticator
         onProfileChanged: {
-            console.log(profile_)
-        }
-
-        onProfile_Changed: {
-            console.log(profile_)
+            console.log(profile.firstName)
         }
     }
 
-    Button{
+    Button {
         height: 500
         width: height
         anchors.centerIn: parent

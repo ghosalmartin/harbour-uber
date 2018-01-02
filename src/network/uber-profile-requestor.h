@@ -13,7 +13,7 @@
 class UberProfileRequestor : public UberRequestor
 {
     Q_OBJECT
-    Q_PROPERTY(Profile *profile_ READ getProfile WRITE setProfile NOTIFY profileChanged)
+    Q_PROPERTY(Profile* profile READ getProfile WRITE setProfile NOTIFY profileChanged)
 
 public:
     explicit UberProfileRequestor(QObject *parent = 0);
@@ -26,13 +26,13 @@ public:
     Profile* getProfile();
 
 signals:
-    void profileChanged(Profile *profile);
+    void profileChanged(Profile *m_profile);
 
 private:
-    Profile *profile;
+    Profile *m_profile;
 
 private slots:
-    void setProfile(Profile *profile);
+    void setProfile(Profile *m_profile);
 
 };
 

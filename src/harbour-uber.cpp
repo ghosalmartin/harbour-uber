@@ -50,6 +50,8 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<O2Uber>("harbour.uber.O2Uber", 1, 0, "O2Uber");
     qmlRegisterType<UberProfileRequestor>("harbour.uber.UberProfileRequestor", 1, 0, "UberProfileRequestor");
+
+    //Singletons
     qmlRegisterSingletonType(QUrl("qrc:///Authenticator.qml"), "harbour.uber.Authenticator", 1, 0, "Authenticator");
 
     QQuickView *view = SailfishApp::createView();

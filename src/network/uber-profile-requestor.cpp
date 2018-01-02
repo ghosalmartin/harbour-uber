@@ -15,14 +15,14 @@ void UberProfileRequestor::fetchProfileFromNetwork(){
 }
 
 void UberProfileRequestor::setProfile(Profile *profile){
-    if(this->profile != profile){
-        this->profile = profile;
+    if(this->m_profile != profile){
+        this->m_profile = profile;
         emit profileChanged(profile);
     }
 }
 
 Profile* UberProfileRequestor::getProfile(){
-    return this->profile;
+    return this->m_profile;
 }
 
 void UberProfileRequestor::deserialize(QByteArray data) {
@@ -30,28 +30,26 @@ void UberProfileRequestor::deserialize(QByteArray data) {
     QJsonDocument jsonResponse =
             QJsonDocument::fromJson(stringReply.toUtf8());
 
-//    QJsonObject jsonObject = jsonResponse.object();
+    //    QJsonObject jsonObject = jsonResponse.object();
 
-    Profile *profile = new Profile();
-    profile->m_email = "test@test.com";
-    profile->m_firstName = "martin";;
-    profile->m_lastName = "ghosal";
-    profile->m_mobileVerified = "true";
-    profile->m_picture = "picture";
-    profile->m_promoCode = "promo_code";
-    profile->m_riderId = "rider_id";
-    profile->m_uuid = "uuid";
-
+    Profile *profile = new Profile("pic",
+                                   "firstname",
+                                   "lastname",
+                                   "uuid",
+                                   "riderid",
+                                   "email",
+                                   "mobileverified",
+                                   "promocode");
     setProfile(profile);
-//    Profile profile;
-//    profile.email = jsonObject["email"].toString();
-//    profile.firstName = jsonObject["first_name"].toString();
-//    profile.lastName = jsonObject["last_name"].toString();
-//    profile.mobileVerified = jsonObject["mobile_verified"].toString();
-//    profile.picture = jsonObject["picture"].toString();
-//    profile.promoCode = jsonObject["promo_code"].toString();
-//    profile.riderId = jsonObject["rider_id"].toString();
-//    profile.uuid = jsonObject["uuid"].toString();
+    //    Profile profile;
+    //    profile.email = jsonObject["email"].toString();
+    //    profile.firstName = jsonObject["first_name"].toString();
+    //    profile.lastName = jsonObject["last_name"].toString();
+    //    profile.mobileVerified = jsonObject["mobile_verified"].toString();
+    //    profile.picture = jsonObject["picture"].toString();
+    //    profile.promoCode = jsonObject["promo_code"].toString();
+    //    profile.riderId = jsonObject["rider_id"].toString();
+    //    profile.uuid = jsonObject["uuid"].toString();
 }
 
 void UberProfileRequestor::onError(QString errorString){

@@ -3,11 +3,10 @@
 
 #include <QString>
 #include <QObject>
-#include <QMetaType>
 
-struct Profile {
-    Q_GADGET
-
+class Profile: public QObject
+{
+    Q_OBJECT
     Q_PROPERTY(QString picture MEMBER m_picture)
     Q_PROPERTY(QString firstName MEMBER m_firstName)
     Q_PROPERTY(QString lastName MEMBER m_lastName)
@@ -18,6 +17,17 @@ struct Profile {
     Q_PROPERTY(QString promoCode MEMBER m_promoCode)
 
 public:
+    Profile (QObject *parent = 0);
+    Profile(QString picture,
+            QString firstName,
+            QString lastName,
+            QString uuid,
+            QString riderId,
+            QString email,
+            QString mobileVerified,
+            QString promoCode);
+
+private:
     QString m_picture;
     QString m_firstName;
     QString m_lastName;
