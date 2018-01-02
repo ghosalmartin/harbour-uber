@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QJsonDocument>
+#include <QJsonObject>
 
 #include "uber-endpoints.h"
 #include "uber-requestor.h"

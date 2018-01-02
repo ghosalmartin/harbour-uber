@@ -30,26 +30,17 @@ void UberProfileRequestor::deserialize(QByteArray data) {
     QJsonDocument jsonResponse =
             QJsonDocument::fromJson(stringReply.toUtf8());
 
-    //    QJsonObject jsonObject = jsonResponse.object();
+    QJsonObject jsonObject = jsonResponse.object();
 
-    Profile *profile = new Profile("pic",
-                                   "firstname",
-                                   "lastname",
-                                   "uuid",
-                                   "riderid",
-                                   "email",
-                                   "mobileverified",
-                                   "promocode");
+    Profile *profile = new Profile(jsonObject["picture"].toString(),
+                                   jsonObject["first_name"].toString(),
+                                   jsonObject["last_name"].toString(),
+                                   jsonObject["uuid"].toString(),
+                                   jsonObject["rider_id"].toString(),
+                                   jsonObject["email"].toString(),
+                                   jsonObject["mobile_verified"].toString(),
+                                   jsonObject["promo_code"].toString());
     setProfile(profile);
-    //    Profile profile;
-    //    profile.email = jsonObject["email"].toString();
-    //    profile.firstName = jsonObject["first_name"].toString();
-    //    profile.lastName = jsonObject["last_name"].toString();
-    //    profile.mobileVerified = jsonObject["mobile_verified"].toString();
-    //    profile.picture = jsonObject["picture"].toString();
-    //    profile.promoCode = jsonObject["promo_code"].toString();
-    //    profile.riderId = jsonObject["rider_id"].toString();
-    //    profile.uuid = jsonObject["uuid"].toString();
 }
 
 void UberProfileRequestor::onError(QString errorString){
