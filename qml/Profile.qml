@@ -23,16 +23,25 @@ Page {
         }
     }
 
-    Image{
-        id: profileImage
-        anchors.centerIn: parent
-    }
+    SilicaListView {
+        anchors.fill: parent
 
-    BusyIndicator{
-        id: progressBar
-        running: true
-        size: BusyIndicatorSize.Medium
-        anchors.centerIn: parent
+        header: PageHeader {
+            id: header
+            title: "Profile"
+        }
+
+        Image {
+            id: profileImage
+            anchors.bottom: parent.center
+        }
+
+        BusyIndicator{
+            id: progressBar
+            running: true
+            size: BusyIndicatorSize.Medium
+            anchors.centerIn: parent
+        }
     }
 
 }

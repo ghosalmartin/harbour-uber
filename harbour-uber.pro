@@ -21,13 +21,15 @@ include($$PWD/o2/src/src.pri)
 SOURCES += src/harbour-uber.cpp \
     src/network/uber-requestor.cpp \
     src/network/uber-profile-requestor.cpp \
-    src/objects/profile.cpp
+    src/objects/profile.cpp \
+    src/network/google-geocoding-requestor.cpp
 
 HEADERS += \
     src/network/uber-requestor.h \
     src/network/uber-endpoints.h \
     src/network/uber-profile-requestor.h \
-    src/objects/profile.h
+    src/objects/profile.h \
+    src/network/google-geocoding-requestor.h
 
 OTHER_FILES += qml/harbour-uber.qml \
     qml/CoverPage.qml \
