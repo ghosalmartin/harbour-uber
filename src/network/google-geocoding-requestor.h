@@ -7,6 +7,9 @@
 #include <QNetworkAccessManager>
 #include <QEventLoop>
 #include <QNetworkReply>
+#include <QList>
+
+#include "src/objects/geocoding-object.h"
 
 class GoogleGeocodingRequestor : public QObject
 {
@@ -17,12 +20,14 @@ public:
     Q_INVOKABLE void searchForAddress(QString address);
 
 signals:
+    void dataProcessed(QList<GeocodingObject> geocodingObjects);
 
 public slots:
     void finished(QNetworkReply *reply);
 
 private:
     QEventLoop eventLoop;
+    void processData(QByteArray data);
 
 };
 

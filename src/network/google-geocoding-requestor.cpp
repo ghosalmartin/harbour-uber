@@ -11,8 +11,6 @@ void GoogleGeocodingRequestor::searchForAddress(QString address){
 
     QString endpointUrl = QString(GOOGLE_GEOCODING_ENDPOINT).arg(address).replace(" ", "+");
 
-    qDebug() << endpointUrl;
-
     QUrl url = QUrl(endpointUrl);
     QNetworkRequest request(url);
 
@@ -25,7 +23,7 @@ void GoogleGeocodingRequestor::searchForAddress(QString address){
 
 void GoogleGeocodingRequestor::finished(QNetworkReply *reply){
     if (reply->error() == QNetworkReply::NoError) {
-        qDebug() << reply->readAll();
+        processData(reply->readAll());
         delete reply;
         eventLoop.exit(0);
     }
@@ -34,4 +32,23 @@ void GoogleGeocodingRequestor::finished(QNetworkReply *reply){
         delete reply;
         eventLoop.exit(0);
     }
+}
+
+void processData(QByteArray data){
+    QString stringReply = (QString) data;
+    QJsonDocument jsonResponse =
+            QJsonDocument::fromJson(stringReply.toUtf8());
+
+    QJsonObject jsonObject = jsonResponse.object();
+
+    QList<GeocodingObject> geocodingObjects;
+
+    QJsonObject resultsObject = jsonObject["results"].toArray();
+
+    QJsonArray::iterator it;
+    for (it = resultsObject.begin(); it != resultsObject.end(); it++) {
+        QString key = it->first;
+        QString value = it->second;
+    }
+
 }
