@@ -9,7 +9,6 @@ public:
     GeocodingObject(QString address,
                     QGeoCoordinate location);
 
-private:
     QString m_address;
     QGeoCoordinate m_location;
 };

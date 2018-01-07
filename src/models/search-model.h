@@ -1,8 +1,9 @@
 #ifndef SEARCHMODEL_H
 #define SEARCHMODEL_H
 
-#include <QObject>
 #include <QAbstractListModel>
+#include <QHash>
+#include <QDebug>
 
 #include "src/objects/geocoding-object.h"
 #include "src/network/google-geocoding-requestor.h"

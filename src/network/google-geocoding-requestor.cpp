@@ -34,7 +34,7 @@ void GoogleGeocodingRequestor::finished(QNetworkReply *reply){
     }
 }
 
-void processData(QByteArray data){
+void GoogleGeocodingRequestor::processData(QByteArray data){
     QString stringReply = (QString) data;
     QJsonDocument jsonResponse =
             QJsonDocument::fromJson(stringReply.toUtf8());
@@ -43,12 +43,12 @@ void processData(QByteArray data){
 
     QList<GeocodingObject> geocodingObjects;
 
-    QJsonObject resultsObject = jsonObject["results"].toArray();
+//    QJsonObject resultsObject = jsonObject["results"];
 
-    QJsonArray::iterator it;
-    for (it = resultsObject.begin(); it != resultsObject.end(); it++) {
-        QString key = it->first;
-        QString value = it->second;
-    }
+//    QJsonArray::iterator it;
+//    for (it = resultsObject.begin(); it != resultsObject.end(); it++) {
+//        QString key = it->first;
+//        QString value = it->second;
+//    }
 
 }

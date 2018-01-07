@@ -1,6 +1,6 @@
 #include "search-model.h"
 
-SearchModel::SearchModel(): QAbstractItemModel(), m_requestor(0), m_ready(false)
+SearchModel::SearchModel(): QAbstractListModel(), m_requestor(0), m_ready(false)
 {
     m_roles[addressRole] = "address";
 }
@@ -9,11 +9,11 @@ QVariant SearchModel::data(const QModelIndex &index, int role) const
 {
 
     int row = index.row();
-    if (row < 0 || row > data_.size()) return QVariant();
-    GeocodingObject geocodingObject = data_.at(row);
+    if (row < 0 || row > m_data.size()) return QVariant();
+    GeocodingObject geocodingObject = m_data.at(row);
 
     if(role == addressRole){
-        geocodingObject.m_address;
+        return geocodingObject.m_address;
     } else {
         return QVariant();
     }
@@ -22,18 +22,17 @@ QVariant SearchModel::data(const QModelIndex &index, int role) const
 void SearchModel::appendRow(GeocodingObject geocodingObject)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    data_.append(geocodingObject);
+    m_data.append(geocodingObject);
     endInsertRows();
 }
 
 void SearchModel::populateModel(QList<GeocodingObject> geocodingObjects)
 {
-
     beginResetModel();
     m_data.clear();
     m_data = geocodingObjects;
     endResetModel();
-    setReady(true);
+    m_ready = true;
     emit readyChanged();
 }
 

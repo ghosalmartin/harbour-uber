@@ -8,6 +8,9 @@
 #include <QEventLoop>
 #include <QNetworkReply>
 #include <QList>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 #include "src/objects/geocoding-object.h"
 
