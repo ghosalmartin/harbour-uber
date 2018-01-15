@@ -1,21 +1,48 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import harbour.uber.GoogleGeocodingRequestor 1.0
+import harbour.uber.SearchModel 1.0
 
-Page{
+Page {
 
-    Button{
+    Button {
         width:500
         height: width
         onClicked: {
-            geocodingRequestor.searchForAddress("8 Back Welburn Avenue")
+            searchModel.searchForAddress("8 Back Welburn Avenue")
         }
 
     }
 
-    GoogleGeocodingRequestor{
-        id:geocodingRequestor
+    BusyIndicator {
+        anchors.centerIn: parent
+        size: BusyIndicatorSize.Large
+        running: !searchModel.ready
+    }
 
+    GoogleGeocodingRequestor {
+        id: geocodingRequestor
+    }
+
+    SilicaListView {
+        model: searchModel
+        delegate: BackgroundItem {
+
+            width: ListView.view.width
+            height: Theme.itemSizeSmall
+
+            Label {
+                id:locationLabel
+                text: model.address
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.paddingMedium
+            }
+        }
+    }
+
+    SearchModel {
+        id:searchModel
+        requestor: geocodingRequestor
     }
 
 }

@@ -3,6 +3,10 @@
 
 #define GOOGLE_GEOCODING_ENDPOINT "https://maps.googleapis.com/maps/api/geocode/json?address=%1&key=AIzaSyD2cziNqnDU8kNX4lzrumelzC8abq_L7qY"
 
+#define JSON_RESULTS_KEY "results"
+#define JSON_FORMATTED_ADDRESS_KEY "formatted_address"
+#define JSON_GEOMETRY_KEY = "geometry"
+
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QEventLoop>
@@ -12,6 +16,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+#include <QDebug>
+
 #include "src/objects/geocoding-object.h"
 
 class GoogleGeocodingRequestor : public QObject
@@ -20,7 +26,7 @@ class GoogleGeocodingRequestor : public QObject
 public:
     explicit GoogleGeocodingRequestor(QObject *parent = 0);
 
-    Q_INVOKABLE void searchForAddress(QString address);
+    void searchForAddress(QString address);
 
 signals:
     void dataProcessed(QList<GeocodingObject> geocodingObjects);

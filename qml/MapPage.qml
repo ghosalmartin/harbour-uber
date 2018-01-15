@@ -23,7 +23,7 @@ Page {
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.horizontalCenterOffset: icon.height
-            anchors.margins: 100
+            anchors.margins: Theme.paddingMedium
             onClicked: map.centerOnPosition()
 
         }

@@ -1,9 +1,7 @@
 #include "google-geocoding-requestor.h"
 
 GoogleGeocodingRequestor::GoogleGeocodingRequestor(QObject *parent) : QObject(parent)
-{
-
-}
+{}
 
 void GoogleGeocodingRequestor::searchForAddress(QString address){
     QNetworkAccessManager* manager =
@@ -40,15 +38,17 @@ void GoogleGeocodingRequestor::processData(QByteArray data){
             QJsonDocument::fromJson(stringReply.toUtf8());
 
     QJsonObject jsonObject = jsonResponse.object();
+    QJsonArray resultsObject = jsonObject[JSON_RESULTS_KEY].toArray();
 
     QList<GeocodingObject> geocodingObjects;
 
-//    QJsonObject resultsObject = jsonObject["results"];
+    for(int i = 0; i < resultsObject.size(); i++){
+        QString formattedAddress = resultsObject[i].toObject()[JSON_FORMATTED_ADDRESS_KEY].toString();
+        QJsonObject location = resultsObject[i].toObject()["geometry"].toObject()["location"].toObject();
+        QString lat = location["lat"].toString();
+        QString lng = location["lng"].toString();
+        geocodingObjects.append(GeocodingObject(formattedAddress, QGeoCoordinate(lat.toDouble(), lng.toDouble())));
+    }
 
-//    QJsonArray::iterator it;
-//    for (it = resultsObject.begin(); it != resultsObject.end(); it++) {
-//        QString key = it->first;
-//        QString value = it->second;
-//    }
-
+    emit dataProcessed(geocodingObjects);
 }

@@ -13,7 +13,7 @@ class SearchModel : public QAbstractListModel
 
     Q_OBJECT
     Q_PROPERTY(bool ready MEMBER m_ready NOTIFY readyChanged)
-    Q_PROPERTY(GoogleGeocodingRequestor *requestor MEMBER m_requestor NOTIFY requestorChanged)
+    Q_PROPERTY(GoogleGeocodingRequestor *requestor READ getRequestor WRITE setRequestor NOTIFY requestorChanged)
 
 public:
     explicit SearchModel();
@@ -34,6 +34,12 @@ public:
     void appendRow(GeocodingObject geocodingObject);
 
     void setRequestor(GoogleGeocodingRequestor *requestor);
+
+    GoogleGeocodingRequestor* getRequestor(){
+        return m_requestor;
+    }
+
+    Q_INVOKABLE void searchForAddress(QString address);
 
 signals:
     void readyChanged();

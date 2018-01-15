@@ -1,6 +1,6 @@
 #include "search-model.h"
 
-SearchModel::SearchModel(): QAbstractListModel(), m_requestor(0), m_ready(false)
+SearchModel::SearchModel(): QAbstractListModel(), m_requestor(0), m_ready(true)
 {
     m_roles[addressRole] = "address";
 }
@@ -47,4 +47,8 @@ void SearchModel::setRequestor(GoogleGeocodingRequestor *requestor){
         }
         emit requestorChanged();
     }
+}
+
+void SearchModel::searchForAddress(QString address){
+    m_requestor->searchForAddress(address);
 }

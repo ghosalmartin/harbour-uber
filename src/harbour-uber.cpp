@@ -38,6 +38,7 @@
 #include "network/uber-profile-requestor.h"
 #include "network/google-geocoding-requestor.h"
 #include "objects/profile.h"
+#include "models/search-model.h"
 
 int main(int argc, char *argv[])
 {
@@ -51,6 +52,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<O2Uber>("harbour.uber.O2Uber", 1, 0, "O2Uber");
     qmlRegisterType<UberProfileRequestor>("harbour.uber.UberProfileRequestor", 1, 0, "UberProfileRequestor");
     qmlRegisterType<GoogleGeocodingRequestor>("harbour.uber.GoogleGeocodingRequestor", 1, 0, "GoogleGeocodingRequestor");
+
+    //Models
+    qmlRegisterType<SearchModel>("harbour.uber.SearchModel", 1, 0, "SearchModel");
+
     //Singletons
     qmlRegisterSingletonType(QUrl("qrc:///Authenticator.qml"), "harbour.uber.Authenticator", 1, 0, "Authenticator");
 
