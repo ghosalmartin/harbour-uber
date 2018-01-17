@@ -50,5 +50,8 @@ void GoogleGeocodingRequestor::processData(QByteArray data){
         geocodingObjects.append(GeocodingObject(formattedAddress, QGeoCoordinate(lat.toDouble(), lng.toDouble())));
     }
 
+    qDebug() << stringReply;
+    qDebug() << geocodingObjects.size();
+
     emit dataProcessed(geocodingObjects);
 }

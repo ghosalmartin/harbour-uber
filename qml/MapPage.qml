@@ -13,7 +13,7 @@ Page {
             anchors.centerIn: parent
             anchors.bottomMargin: -height / 2
             icon.source: Qt.resolvedUrl(app.getIcon("icons/pickup_pin"))
-            onClicked: pageStack.replace("Search.qml")
+            onClicked: pageStack.push("Search.qml")
 
         }
 

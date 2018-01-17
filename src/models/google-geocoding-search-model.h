@@ -1,5 +1,5 @@
-#ifndef SEARCHMODEL_H
-#define SEARCHMODEL_H
+#ifndef GOOGLEGEOCODINGSEARCHMODEL_H
+#define GOOGLEGEOCODINGSEARCHMODEL_H
 
 #include <QAbstractListModel>
 #include <QHash>
@@ -8,7 +8,7 @@
 #include "src/objects/geocoding-object.h"
 #include "src/network/google-geocoding-requestor.h"
 
-class SearchModel : public QAbstractListModel
+class GoogleGeocodingSearchModel : public QAbstractListModel
 {
 
     Q_OBJECT
@@ -16,10 +16,12 @@ class SearchModel : public QAbstractListModel
     Q_PROPERTY(GoogleGeocodingRequestor *requestor READ getRequestor WRITE setRequestor NOTIFY requestorChanged)
 
 public:
-    explicit SearchModel();
+    explicit GoogleGeocodingSearchModel();
 
     enum Roles {
-        addressRole = Qt::UserRole + 1
+        addressRole = Qt::UserRole + 1,
+        latRole = Qt::UserRole + 2,
+        lngRole = Qt::UserRole + 3
     };
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const {
@@ -55,4 +57,4 @@ private:
     bool m_ready;
 };
 
-#endif // SEARCHMODEL_H
+#endif // GOOGLEGEOCODINGSEARCHMODEL_H
