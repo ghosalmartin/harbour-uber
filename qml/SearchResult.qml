@@ -7,9 +7,12 @@ Dialog {
 
     id: searchResultDialog
 
-    PageHeader {
-        id: title
-        title: "Search Results"
+    property string address;
+
+    onStatusChanged: {
+        if(status == PageStatus.Active){
+            searchModel.searchForAddress(address)
+        }
     }
 
     BusyIndicator {
@@ -17,11 +20,18 @@ Dialog {
         anchors.centerIn: parent
         size: BusyIndicatorSize.Large
         running: !searchModel.ready
-        visible: false
     }
 
     SilicaListView {
         anchors.fill: parent
+        currentIndex: -1
+
+        header: PageHeader {
+            id:header
+            title: {
+                "Search Results"
+            }
+        }
 
         model: searchModel
         delegate: BackgroundItem {

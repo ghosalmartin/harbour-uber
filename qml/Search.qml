@@ -7,6 +7,14 @@ Dialog {
 
     id: searchDialog
 
+    acceptDestination: Qt.resolvedUrl("SearchResult.qml")
+    acceptDestinationAction: PageStackAction.Replace
+    canAccept: searchField.text.length > 0
+
+    onAccepted: {
+        acceptDestinationInstance.address = searchField.text.toString();
+    }
+
     PageHeader {
         id: title
         title: "Search"
@@ -18,5 +26,4 @@ Dialog {
         anchors.top: title.bottom
         placeholderText: "Destination"
     }
-
 }
