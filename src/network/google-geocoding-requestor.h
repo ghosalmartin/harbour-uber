@@ -6,6 +6,7 @@
 #define JSON_RESULTS_KEY "results"
 #define JSON_FORMATTED_ADDRESS_KEY "formatted_address"
 #define JSON_GEOMETRY_KEY = "geometry"
+#define JSON_LOCATION_KEY = "location"
 
 #include <QObject>
 #include <QNetworkAccessManager>

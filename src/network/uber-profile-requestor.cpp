@@ -1,8 +1,7 @@
 #include "uber-profile-requestor.h"
 
 UberProfileRequestor::UberProfileRequestor(QObject *parent)
-    : UberRequestor(parent)
-{
+    : UberRequestor(parent){
     connect(this, SIGNAL(profileChanged(Profile*)),
             this, SLOT(setProfile(Profile*)));
 }
@@ -10,8 +9,7 @@ UberProfileRequestor::UberProfileRequestor(QObject *parent)
 void UberProfileRequestor::fetchProfileFromNetwork(){
     makeNetworkCall(
                 UBER_ME_ENDPOINT,
-                QNetworkAccessManager::Operation::GetOperation,
-                QByteArray());
+                QNetworkAccessManager::Operation::GetOperation);
 }
 
 void UberProfileRequestor::setProfile(Profile *profile){

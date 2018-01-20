@@ -20,7 +20,7 @@
 #define UBER_PLACES_ENDPOINT UBER_ENDPOINT "/places/%1"
 
 //Ride Products
-#define UBER_PRODUCTS_ENDPOINT UBER_ENDPOINT "/products"
+#define UBER_PRODUCTS_ENDPOINT UBER_ENDPOINT "/products?latitude=%1&longitude=%2"
 #define UBER_SPECIFIC_PRODUCT_ENDPOINT UBER_ENDPOINT "/products/%1"
 
 //Ride Estimates

@@ -9,10 +9,10 @@ Dialog {
 
     acceptDestination: Qt.resolvedUrl("SearchResult.qml")
     acceptDestinationAction: PageStackAction.Replace
-    canAccept: searchField.text.length > 0
+    canAccept: destinationSearchField.text.length > 0
 
     onAccepted: {
-        acceptDestinationInstance.address = searchField.text.toString();
+        acceptDestinationInstance.address = destinationSearchField.text.toString();
     }
 
     PageHeader {
@@ -21,9 +21,12 @@ Dialog {
     }
 
     SearchField {
-        id: searchField
+        id: destinationSearchField
         width: parent.width
         anchors.top: title.bottom
         placeholderText: "Destination"
+        EnterKey.onClicked: {
+            accept()
+        }
     }
 }

@@ -8,7 +8,8 @@ Profile::Profile(
         QString riderId,
         QString email,
         QString mobileVerified,
-        QString promoCode){
+        QString promoCode)
+{
 
     this->m_picture = picture;
     this->m_firstName = firstName;

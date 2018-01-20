@@ -17,7 +17,7 @@ class Profile: public QObject
     Q_PROPERTY(QString promoCode MEMBER m_promoCode)
 
 public:
-    Profile (QObject *parent = 0);
+    explicit Profile (QObject *parent = 0);
     Profile(QString picture,
             QString firstName,
             QString lastName,

@@ -1,12 +1,12 @@
 #include "google-geocoding-search-model.h"
 
-GoogleGeocodingSearchModel::GoogleGeocodingSearchModel(): QAbstractListModel(), m_requestor(0), m_ready(false)
-{
+GoogleGeocodingSearchModel::GoogleGeocodingSearchModel(): QAbstractListModel(), m_requestor(0), m_ready(false){
     m_roles[addressRole] = "address";
+    m_roles[latRole] = "lat";
+    m_roles[lngRole] = "lng";
 }
 
-QVariant GoogleGeocodingSearchModel::data(const QModelIndex &index, int role) const
-{
+QVariant GoogleGeocodingSearchModel::data(const QModelIndex &index, int role) const {
 
     int row = index.row();
     if (row < 0 || row > m_data.size()) return QVariant();
@@ -21,15 +21,13 @@ QVariant GoogleGeocodingSearchModel::data(const QModelIndex &index, int role) co
     }
 }
 
-void GoogleGeocodingSearchModel::appendRow(GeocodingObject geocodingObject)
-{
+void GoogleGeocodingSearchModel::appendRow(GeocodingObject geocodingObject) {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_data.append(geocodingObject);
     endInsertRows();
 }
 
-void GoogleGeocodingSearchModel::populateModel(QList<GeocodingObject> geocodingObjects)
-{
+void GoogleGeocodingSearchModel::populateModel(QList<GeocodingObject> geocodingObjects) {
     beginResetModel();
     m_data.clear();
     m_data = geocodingObjects;
@@ -38,8 +36,7 @@ void GoogleGeocodingSearchModel::populateModel(QList<GeocodingObject> geocodingO
     emit readyChanged();
 }
 
-void GoogleGeocodingSearchModel::setRequestor(GoogleGeocodingRequestor *requestor)
-{
+void GoogleGeocodingSearchModel::setRequestor(GoogleGeocodingRequestor *requestor) {
     if (m_requestor != requestor) {
         if (m_requestor) {
             disconnect(m_requestor, SIGNAL(dataProcessed(QList<GeocodingObject>)), this, SLOT(populateModel(QList<GeocodingObject>)));
@@ -52,7 +49,6 @@ void GoogleGeocodingSearchModel::setRequestor(GoogleGeocodingRequestor *requesto
     }
 }
 
-void GoogleGeocodingSearchModel::searchForAddress(QString address)
-{
+void GoogleGeocodingSearchModel::searchForAddress(QString address) {
     m_requestor->searchForAddress(address);
 }

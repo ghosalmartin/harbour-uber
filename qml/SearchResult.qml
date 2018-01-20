@@ -36,6 +36,7 @@ Dialog {
         model: searchModel
         delegate: BackgroundItem {
             id:backgroundItem
+            height: Theme.itemSizeSmall
 
             ListView.onAdd: AddAnimation {
                 target: backgroundItem
@@ -44,13 +45,14 @@ Dialog {
                 target: backgroundItem
             }
 
-            height: Theme.itemSizeLarge
-
             Label {
                 id:locationLabel
                 text: model.address
                 anchors.verticalCenter: parent.verticalCenter
                 wrapMode: Text.Wrap
+                anchors.margins: Theme.paddingMedium
+            }
+            onClicked: {
             }
         }
     }
@@ -62,8 +64,5 @@ Dialog {
     GoogleGeocodingSearchModel {
         id:searchModel
         requestor: geocodingRequestor
-        onDataChanged: {
-            progressIndicator.visible = false
-        }
     }
 }

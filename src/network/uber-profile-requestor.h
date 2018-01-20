@@ -17,7 +17,7 @@ class UberProfileRequestor : public UberRequestor
     Q_PROPERTY(Profile* profile READ getProfile WRITE setProfile NOTIFY profileChanged)
 
 public:
-    explicit UberProfileRequestor(QObject *parent = 0);
+    UberProfileRequestor(QObject *parent = 0);
 
     void deserialize(QByteArray data);
     void onError(QString errorString);
@@ -27,7 +27,7 @@ public:
     Profile* getProfile();
 
 signals:
-    void profileChanged(Profile *m_profile);
+    void profileChanged(Profile *profile);
 
 private:
     Profile *m_profile;

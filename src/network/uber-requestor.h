@@ -22,7 +22,7 @@ public:
 
     explicit UberRequestor(QObject *parent = 0);
 
-    void makeNetworkCall(char *endpoint, QNetworkAccessManager::Operation operation, const QByteArray &data);
+    void makeNetworkCall(char *endpoint, QNetworkAccessManager::Operation operation, const QByteArray &data = QByteArray());
 
     virtual void deserialize(QByteArray data) = 0;
     virtual void onError(QString errorString) = 0;
