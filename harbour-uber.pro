@@ -26,7 +26,8 @@ SOURCES += src/harbour-uber.cpp \
     src/objects/geocoding-object.cpp \
     src/models/google-geocoding-search-model.cpp \
     src/network/uber-product-requestor.cpp \
-    src/objects/product.cpp
+    src/objects/product.cpp \
+    src/models/uber-product-model.cpp
 HEADERS += \
     src/network/uber-requestor.h \
     src/network/uber-endpoints.h \
@@ -36,7 +37,8 @@ HEADERS += \
     src/objects/geocoding-object.h \
     src/models/google-geocoding-search-model.h \
     src/network/uber-product-requestor.h \
-    src/objects/product.h
+    src/objects/product.h \
+    src/models/uber-product-model.h
 
 OTHER_FILES += qml/harbour-uber.qml \
     qml/CoverPage.qml \

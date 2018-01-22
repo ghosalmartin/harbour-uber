@@ -22,10 +22,10 @@ public:
     void deserialize(QByteArray data);
     void onError(QString errorString);
 
-    Q_INVOKABLE void fetchProductFromNetwork(QString lat, QString lng);
+    void fetchProductFromNetwork(QString lat, QString lng);
 
 signals:
-    void productsChanged(QList<Product*> products);
+    void productsChanged(QList<Product> products);
 
 };
 

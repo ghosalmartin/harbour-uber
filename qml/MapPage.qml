@@ -1,18 +1,12 @@
 import QtQuick 2.0
 
 import Sailfish.Silica 1.0
-import harbour.uber.UberProductRequestor 1.0
 import QtPositioning 5.3
 
 import "."
 
 Page {
     id: page
-
-    UberProductRequestor {
-        id: requestor
-        authenticator_: authenticator
-    }
 
     Map {
         id: map
@@ -22,7 +16,9 @@ Page {
             anchors.centerIn: parent
             anchors.bottomMargin: -height / 2
             icon.source: Qt.resolvedUrl(app.getIcon("icons/pickup_pin"))
-            onClicked: pageStack.push("Profile.qml")
+            onClicked: {
+                pageStack.push("Products.qml", {"lat": map.getPosition()[0], "lng": map.getPosition()[1]})
+            }
         }
 
         IconButton {
@@ -31,19 +27,8 @@ Page {
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.horizontalCenterOffset: icon.height
-            anchors.margins: Theme.paddingMedium
+            anchors.margins: Theme.paddingLarge
             onClicked: map.centerOnPosition()
-        }
-    }
-
-    PositionSource {
-        onReadyChanged: {
-            if(ready){
-                console.log("ready");
-                requestor.fetchProductFromNetwork(
-                            gps.position.coordinate.latitude,
-                            gps.position.coordinate.longitude)
-            }
         }
     }
 }

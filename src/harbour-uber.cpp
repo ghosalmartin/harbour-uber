@@ -35,9 +35,13 @@
 #include <sailfishapp.h>
 
 #include "o2uber.h"
+
 #include "network/uber-profile-requestor.h"
+
 #include "network/google-geocoding-requestor.h"
 #include "models/google-geocoding-search-model.h"
+
+#include "models/uber-product-model.h"
 #include "network/uber-product-requestor.h"
 
 int main(int argc, char *argv[])
@@ -56,6 +60,7 @@ int main(int argc, char *argv[])
 
     //Models
     qmlRegisterType<GoogleGeocodingSearchModel>("harbour.uber.GoogleGeocodingSearchModel", 1, 0, "GoogleGeocodingSearchModel");
+    qmlRegisterType<UberProductModel>("harbour.uber.UberProductModel", 1, 0, "UberProductModel");
 
     //Singletons
     qmlRegisterSingletonType(QUrl("qrc:///Authenticator.qml"), "harbour.uber.Authenticator", 1, 0, "Authenticator");
