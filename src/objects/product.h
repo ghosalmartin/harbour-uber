@@ -4,7 +4,7 @@
 #include <QString>
 #include <QObject>
 
-class Product : public QObject
+class Product: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString productId MEMBER m_productId)

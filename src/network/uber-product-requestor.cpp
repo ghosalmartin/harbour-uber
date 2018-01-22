@@ -19,15 +19,16 @@ void UberProductRequestor::deserialize(QByteArray data){
     QJsonObject jsonObject = jsonResponse.object();
     QJsonArray products = jsonObject["products"].toArray();
 
-    qDebug() << stringReply;
-
-    QList<Product> productObjects;
+    QList<Product*> productObjects;
     for(int i = 0; i < products.size(); i++){
         QJsonObject product = products[i].toObject();
         QString productId = product["product_id"].toString();
         QString image = product["image"].toString();
         QString productGroup = product["product_group"].toString();
-        productObjects.append(Product(productId, image, productGroup));
+
+        Product *localProduct = new Product(productId, image, productGroup);
+
+        productObjects.append(localProduct);
     }
 
     emit productsChanged(productObjects);

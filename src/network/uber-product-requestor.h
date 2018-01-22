@@ -25,7 +25,7 @@ public:
     Q_INVOKABLE void fetchProductFromNetwork(QString lat, QString lng);
 
 signals:
-    void productsChanged(QList<Product> products);
+    void productsChanged(QList<Product*> products);
 
 };
 
