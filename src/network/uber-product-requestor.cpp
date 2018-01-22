@@ -22,16 +22,15 @@ void UberProductRequestor::deserialize(QByteArray data){
     qDebug() << stringReply;
 
     QList<Product> productObjects;
-
     for(int i = 0; i < products.size(); i++){
         QJsonObject product = products[i].toObject();
         QString productId = product["product_id"].toString();
         QString image = product["image"].toString();
         QString productGroup = product["product_group"].toString();
-//        productObjects.append(Product(productId, image, productGroup));
+        productObjects.append(Product(productId, image, productGroup));
     }
 
-//    emit productsChanged(productObjects);
+    emit productsChanged(productObjects);
 }
 
 void UberProductRequestor::onError(QString errorString){
