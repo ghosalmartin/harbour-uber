@@ -17,7 +17,7 @@ Page {
             anchors.bottomMargin: -height / 2
             icon.source: Qt.resolvedUrl(app.getIcon("icons/pickup_pin"))
             onClicked: {
-                pageStack.push("Products.qml", {"lat": map.getPosition()[0], "lng": map.getPosition()[1]})
+                pageStack.push("Products.qml", {"lat": map.getPosition()[1], "lng": map.getPosition()[0]})
             }
         }
 
