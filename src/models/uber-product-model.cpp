@@ -1,6 +1,6 @@
 #include "uber-product-model.h"
 
-UberProductModel::UberProductModel(QObject *parent) : QAbstractListModel(parent)
+UberProductModel::UberProductModel(QObject *parent) : QAbstractListModel(parent), m_requestor(0), m_ready(false)
 {
     m_roles[productIdRole] = "productId";
     m_roles[productGroupRole] = "productGroup";
