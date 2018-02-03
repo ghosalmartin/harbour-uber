@@ -57,7 +57,6 @@ MapboxMap {
     property bool ready: false
     property var  route: {}
     property int  workingMapZoom: 15
-
     // layer that is existing in the current style and
     // which can be used to position route and other layers
     // under to avoid covering important map features, such

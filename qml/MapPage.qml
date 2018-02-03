@@ -17,7 +17,8 @@ Page {
             anchors.bottomMargin: -height / 2
             icon.source: Qt.resolvedUrl(app.getIcon("icons/pickup_pin"))
             onClicked: {
-                pageStack.push("Products.qml", {"lat": map.getPosition()[1], "lng": map.getPosition()[0]})
+                map.queryCoordinateForPixel(Qt.point(mouse.x, mouse.y), "pin_press")
+                //                pageStack.push("Products.qml", {"lat": map.getPosition()[1], "lng": map.getPosition()[0]})
             }
         }
 
@@ -29,6 +30,17 @@ Page {
             anchors.horizontalCenterOffset: icon.height
             anchors.margins: Theme.paddingLarge
             onClicked: map.centerOnPosition()
+        }
+
+        onReplyCoordinateForPixel: {
+            if (tag === "pin_press") {
+                console.log("lat: "+ geocoordinate.latitude)
+                console.log("lng: "+ geocoordinate.longitude)
+
+                pageStack.push("Products.qml", {"lat": geocoordinate.latitude, "lng": geocoordinate.longitude})
+                return;
+            }
+
         }
     }
 }

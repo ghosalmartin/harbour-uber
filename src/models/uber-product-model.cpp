@@ -16,7 +16,7 @@ QVariant UberProductModel::data(const QModelIndex &index, int role) const {
     switch(role)
     {
     case productIdRole: return product.m_productId;
-    case productGroupRole: return product.m_productId;
+    case productGroupRole: return product.m_productGroup;
     case imageRole: return product.m_image;
     default: return QVariant();
     }

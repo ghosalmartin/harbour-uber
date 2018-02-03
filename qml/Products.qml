@@ -49,7 +49,7 @@ Dialog {
 
             Label {
                 id:locationLabel
-                text: model.productId + " " + model.productGroup
+                text: model.productGroup
                 anchors.verticalCenter: parent.verticalCenter
                 wrapMode: Text.Wrap
                 anchors.margins: Theme.paddingMedium
