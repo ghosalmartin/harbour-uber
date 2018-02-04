@@ -20,10 +20,21 @@ Dialog {
         title: "Search"
     }
 
+
+    SearchField {
+        id: originSearchField
+        width: parent.width
+        anchors.top: title.bottom
+        placeholderText: "Origin"
+        EnterKey.onClicked: {
+            accept()
+        }
+    }
+
     SearchField {
         id: destinationSearchField
         width: parent.width
-        anchors.top: title.bottom
+        anchors.top: originSearchField.bottom
         placeholderText: "Destination"
         EnterKey.onClicked: {
             accept()
