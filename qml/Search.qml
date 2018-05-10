@@ -7,37 +7,46 @@ Dialog {
 
     id: searchDialog
 
-    acceptDestination: Qt.resolvedUrl("SearchResult.qml")
-    acceptDestinationAction: PageStackAction.Replace
-    canAccept: destinationSearchField.text.length > 0
+    property var lat: String
+    property var lng: String
 
-    onAccepted: {
-        acceptDestinationInstance.address = destinationSearchField.text.toString();
-    }
+//    acceptDestination: Qt.resolvedUrl("SearchResult.qml")
+//    acceptDestinationAction: PageStackAction.Replace
+//    canAccept: destinationSearchField.text.length > 0
 
     PageHeader {
         id: title
         title: "Search"
     }
 
-
-    SearchField {
+    BackgroundItem {
         id: originSearchField
         width: parent.width
         anchors.top: title.bottom
-        placeholderText: "Origin"
-        EnterKey.onClicked: {
-            accept()
+        Label {
+            text: "origin"
+            anchors.verticalCenter: parent.verticalCenter
+            wrapMode: Text.Wrap
+            anchors.margins: Theme.paddingMedium
         }
+
+        onClicked: {
+            pageStack.push("SearchResult.qml", {"lat": lat, "lng": lng })
+        }
+
     }
 
-    SearchField {
+    BackgroundItem {
         id: destinationSearchField
         width: parent.width
         anchors.top: originSearchField.bottom
-        placeholderText: "Destination"
-        EnterKey.onClicked: {
-            accept()
+
+        Label {
+            text: "destination"
+            anchors.verticalCenter: parent.verticalCenter
+            wrapMode: Text.Wrap
+            anchors.margins: Theme.paddingMedium
         }
+
     }
 }

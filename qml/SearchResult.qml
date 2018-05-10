@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtPositioning 5.3
 import Sailfish.Silica 1.0
 import harbour.uber.GoogleGeocodingRequestor 1.0
 import harbour.uber.GoogleGeocodingSearchModel 1.0
@@ -8,34 +9,50 @@ Dialog {
     id: searchResultDialog
 
     property string address;
-
-    onStatusChanged: {
-        if(status == PageStatus.Active){
-            searchModel.searchForAddress(address)
-        }
-    }
+    property string lat;
+    property string lng;
 
     BusyIndicator {
         id: progressIndicator
         anchors.centerIn: parent
         size: BusyIndicatorSize.Large
         running: !searchModel.ready
+        visible: false
+    }
+
+    BackgroundItem {
+        id: currentPosition
+        height: Theme.itemSizeSmall
+        width: parent.width
+        Label {
+            text: "Current Position"
+            anchors.verticalCenter: parent.verticalCenter
+            wrapMode: Text.Wrap
+            anchors.margins: Theme.paddingMedium
+        }
     }
 
     SilicaListView {
-        anchors.fill: parent
+        anchors.top: currentPosition.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
         currentIndex: -1
 
-        header: PageHeader {
-            id:header
-            title: {
-                "Search Results"
+        header: SearchField {
+            id: searchField
+            width: parent.width
+            placeholderText: "Search"
+            onTextChanged: {
+                if(searchField.text != ""){
+                    searchModel.searchForAddress(searchField.text)
+                }
             }
         }
 
         model: searchModel
         delegate: BackgroundItem {
-            id:backgroundItem
+            id: backgroundItem
             height: Theme.itemSizeSmall
 
             ListView.onAdd: AddAnimation {
@@ -53,6 +70,11 @@ Dialog {
                 anchors.margins: Theme.paddingMedium
             }
             onClicked: {
+                //                console.log(map.position)
+                //                map.position = QtPositioning.coordinate(model.lat, model.lng)
+                //                console.log(map.position)
+                //                map.centerOnPosition()
+                //                map.visible = true
             }
         }
     }
@@ -62,7 +84,7 @@ Dialog {
     }
 
     GoogleGeocodingSearchModel {
-        id:searchModel
+        id: searchModel
         requestor: geocodingRequestor
     }
 }

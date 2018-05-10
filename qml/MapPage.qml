@@ -9,7 +9,7 @@ Page {
     id: page
 
     Map {
-        id: map
+        id: embeddedMap
 
         IconButton {
             id: pin
@@ -17,8 +17,7 @@ Page {
             anchors.bottomMargin: -height / 2
             icon.source: Qt.resolvedUrl(app.getIcon("icons/pickup_pin"))
             onClicked: {
-                map.queryCoordinateForPixel(Qt.point(map.width/2 , map.height/2), "pin_press")
-                //                pageStack.push("Products.qml", {"lat": map.getPosition()[1], "lng": map.getPosition()[0]})
+                embeddedMap.queryCoordinateForPixel(Qt.point(embeddedMap.width/2 , embeddedMap.height/2), "pin_press")
             }
         }
 
@@ -29,7 +28,7 @@ Page {
             anchors.bottom: parent.bottom
             anchors.horizontalCenterOffset: icon.height
             anchors.margins: Theme.paddingLarge
-            onClicked: map.centerOnPosition()
+            onClicked: embeddedMap.centerOnPosition()
         }
 
         onReplyCoordinateForPixel: {

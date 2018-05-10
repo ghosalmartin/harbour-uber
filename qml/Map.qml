@@ -252,6 +252,11 @@ MapboxMap {
         map.setZoomLevel(workingMapZoom);
     }
 
+//    function centerOnPosition(position){
+//        map.position = position
+//        centerOnPosition()
+//    }
+
     function clear() {
         // Remove all point and route markers from the map.
         map.clearPois();
